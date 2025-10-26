@@ -1,12 +1,14 @@
-import { Button, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-const Heading = () => {
+const Heading = ({ heading, text }) => {
     return (
-        <>
-            <Typography sx={{ fontSize: "30px", textAlign: "center" }}>Want To Travel With Us?</Typography>
+        <><Box sx={{ textAlign: "center" }} >
 
-            <Button variant="contained" sx={{ backgroundColor: "#ef6c57",margin:"50px auto ",display:"block", px: 4, py: 1.5, fontSize: "1rem",transition : "border-radius 0.3s ease-in" , borderRadius: "8px", ":hover": { borderRadius: "50px" } }}>Book Now </Button>
+            <Typography fontWeight={"bold"} fontSize={30}>{heading}</Typography>
+            <Typography sx={{ color: "#555", fontSize: "14px", marginBottom: "10px" }}>{text}</Typography>
+        </Box>
+
         </>
     )
 }

@@ -22,13 +22,23 @@ const Testimonials = () => {
   const previous = () => {
     setSlide((prev) => (prev === 0 ? 2 : prev - 1));
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      next()
+    },6000)
+
+    return () => clearInterval(interval)
+  })
+
+
   return (
     <Box sx={{ backgroundColor: "#f8f9fa", py: 6 }}>
       <Container maxWidth="lg">
         {/* Heading */}
-        <Box sx={{ textAlign: "center" }}>
+        {/* <Box sx={{ textAlign: "center" }}>
           <Typography sx={{ fontSize: "28px", fontWeight: "bold" }}>Testimonials</Typography>
-        </Box>
+        </Box> */}
 
         <Box sx={{
           minWidth: `${100 * testimonialObject.length}vw`, position: "relative", overflow: "hidden", display: "flex",

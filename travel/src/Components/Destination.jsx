@@ -19,13 +19,8 @@ const Destination = () => {
         <Container maxWidth="lg">
 
             <Box>
-                <Box sx={{ textAlign: "center", margin: "50px 0" }}>
-                    <Typography fontWeight={"bold"} fontSize={30}>Our Destinations</Typography>
-                    <Typography sx={{ color: "#555", fontSize: "14px" }}>Choose your next destination</Typography>
-                </Box>
-
                 <Box>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={4}>
                         {
                             destinations.map((item, index) => (
                                 <Grid key={item.title +index} size={{ xs: 12, md: 6, lg: 4 }}>

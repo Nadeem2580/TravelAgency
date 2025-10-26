@@ -7,13 +7,20 @@ import img_2 from "../assets/img_2.jpg"
 import img_3 from "../assets/img_3.jpg"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
+import { useEffect } from "react"
 
 const Hero = () => {
     const [slide, setSlide] = useState(0)
 
     const nextImage = () => setSlide((prev) => (prev === 0 ? 1 : 0))
     const prevImage = () => setSlide((prev) => (prev === 1 ? 0 : 1))
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextImage()
+    },4000)
 
+    return () => clearInterval(interval)
+  })
     return (
         <>
             <Box sx={{ width: "100vw", overflow: "hidden", position: "relative" }}>

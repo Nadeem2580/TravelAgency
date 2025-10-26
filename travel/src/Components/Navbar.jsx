@@ -11,17 +11,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 const pages = [
-    {"title" : "Home", url : "/"},
-    {"title" : "Destination", url : "/destination"},
-    {"title" : "Discount", url : "/discount"},
-    {"title" : "About", url : "/about"},
-    {"title" : "Blog", url : "/blog"},
-    {"title" : "Contact", url : "/contact"},
+    { "title": "Home", url: "/" },
+    { "title": "Destination", url: "/destination" },
+    { "title": "About", url: "/about" },
+    { "title": "Contact", url: "/contact" },
 ];
 
-function Navbar() {
+function Navbar({ children }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,7 +40,9 @@ function Navbar() {
     };
 
     return (
-        <Container maxWidth="lg" sx={{backgroundColor:"#fff"}}>
+        <>
+
+            <Container maxWidth="lg" sx={{ backgroundColor: "#fff" }}>
 
                 <Toolbar disableGutters>
                     {/* Descktop Logo */}
@@ -85,20 +86,22 @@ function Navbar() {
                         Travelers
                     </Typography>
                     {/* Descktop Links */}
-                    <Box sx={{color:"#555", flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "end" }}>
+                    <Box sx={{ color: "#555", flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "end" }}>
                         {pages.map((page) => (
-                            <Button
-                                key={page.title}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block',color:"#555" }}
-                            >
-                                {page.title}
-                            </Button>
+
+                            <Link to={`${page.url}`} key={page.title} style={{textDecoration:"none"}}>
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white', display: 'block', color: "#555", fontSize: "13px", fontWeight: "bold", }}
+                                >
+                                    {page.title}
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
                     {/* Mobile menu  */}
 
-                    <Box sx={{color:"#555", flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: "end" }}>
+                    <Box sx={{ color: "#555", flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: "end" }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -127,14 +130,15 @@ function Navbar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                                    <Typography sx={{ textAlign: 'center',color:"#555" }}>{page.title}</Typography>
+                                    <Typography sx={{ textAlign: 'center', color: "#555" }}>{page.title}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                 </Toolbar>
-        </Container>
-
+            </Container>
+            {children}
+        </>
     );
 }
 export default Navbar;

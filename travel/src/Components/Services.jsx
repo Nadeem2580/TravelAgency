@@ -18,10 +18,10 @@ const Services = () => {
 
     return (
         <Container maxWidth="lg" sx={{marginTop:"30px"}}>
-             <Box sx={{ textAlign: "center", margin: "50px 0" }}>
+             {/* <Box sx={{ textAlign: "center", margin: "50px 0" }}>
                     <Typography fontWeight={"bold"} fontSize={30}>Our Destinations</Typography>
                     <Typography sx={{ color: "#555", fontSize: "14px" }}>Choose your next destination</Typography>
-                </Box>
+                </Box> */}
 
 
             <Grid container spacing={2} sx={{ margin: "0 auto", display: "flex", gap: "30px", padding: "0 40px" }}>
