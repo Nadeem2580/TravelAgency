@@ -9,6 +9,7 @@ import Footer from './Components/Footer'
 import Navbar from './Components/Navbar'
 import AboutPage from './Pages/About'
 import Contact from './Pages/Contact'
+import DestinationDetail from './Pages/DestinationDetail'
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         <Route path='/destination' element={<DestinationPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/contact' element={<Contact />} />
-
+        <Route path="/destination/:name" element={<DestinationDetail />} />
 
 
       </Routes>

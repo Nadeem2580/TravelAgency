@@ -6,7 +6,7 @@ const Heading = ({ heading, text }) => {
         <><Box sx={{ textAlign: "center" }} >
 
             <Typography fontWeight={"bold"} fontSize={30}>{heading}</Typography>
-            <Typography sx={{ color: "#555", fontSize: "14px", marginBottom: "10px" }}>{text}</Typography>
+            <Typography sx={{ color: "#ef6c57", fontSize: "14px", marginBottom: "10px" }}>{text}</Typography>
         </Box>
 
         </>

@@ -13,9 +13,9 @@ const Cards = () => {
 
     return (
         <Container maxWidth="lg" >
-            <Grid container spacing={2} sx={{ margin: "0 auto", display: "flex", gap: "30px", padding: "0 40px" }}>
+            <Grid container spacing={3} sx={{  padding: "10px" }} justifyContent={"center"}>
                 {obj.map((item, index) => (
-                    <Grid key={item.title} size={{ xs: 12, md: 6, lg: 3.5 }} justifyContent={"center"}>
+                    <Grid key={item.title} size={{ xs: 12, md: 6, lg: 3.5 }} sx={{borderRadius:"5px",padding:"30px",":hover":{boxShadow:"0 0 3px black"}}}>
                         <Box >
                             <Box sx={{ display: "flex" }}>
                                 <Box component={"img"} src={item.icon} sx={{ width: "100px", height: "50px", marginRight: "15px" }} />

@@ -51,7 +51,7 @@ function Navbar({ children }) {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -60,9 +60,10 @@ function Navbar({ children }) {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            color:"#ef6c57"
                         }}
                     >
-                        Travelers
+                        Pak Tavelers
                     </Typography>
 
 
@@ -81,9 +82,10 @@ function Navbar({ children }) {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            color:"#ef6c57"
                         }}
                     >
-                        Travelers
+                        Pak Tavelers
                     </Typography>
                     {/* Descktop Links */}
                     <Box sx={{ color: "#555", flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "end" }}>

@@ -5,6 +5,8 @@ import japan from "../assets/03-japan.jpg"
 import dubai from "../assets/04-dubai.jpg"
 import london from "../assets/05-london.jpg"
 import australia from "../assets/06-australia.jpg"
+import travelDestinations from '../assets/object'
+import { useNavigate } from 'react-router-dom'
 
 const Destination = () => {
     const destinations = [
@@ -15,33 +17,66 @@ const Destination = () => {
         { price: "$ 290", image: london, title: "Elizabeth Tower, London" },
         { price: "$ 390", image: australia, title: "Opera House, Australia" },
     ]
+const navigate = useNavigate()
+
+
+
+
     return (
         <Container maxWidth="lg">
 
             <Box>
-                <Box>
+                <Box >
                     <Grid container spacing={4}>
                         {
-                            destinations.map((item, index) => (
-                                <Grid key={item.title +index} size={{ xs: 12, md: 6, lg: 4 }}>
-                                    <Box sx={{
+                            travelDestinations.map((item, index) => (
+                                <Grid key={item.name +index} size={{ xs: 12, md: 6, lg: 4 }}>
+                                    <Box onClick={()=>navigate(`/destination/${item.name}`)} sx={{
                                         position: "relative", overflow: "hidden", cursor: "pointer", height: "400px",
                                         "&:hover .priceText": { transform: "translateY(-10px) translateX(-50%)" }, "&:hover .image": { transform: "scale(1.1)" }
                                     }}>
-                                        <Box
-                                            className="image"
-                                            sx={{ width: "100%", height: "100%", transition: "transform 0.5s ease", transformOrigin: "center center" }}>
-                                            <Box component="img" src={item.image} alt="London" sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                                        </Box>
+                                       <Box
+  sx={{
+    position: "relative",
+    width: "100%",
+    height: "100%",
+    overflow: "hidden",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4))",
+      zIndex: 1,
+    },
+  }}
+>
+  <Box
+    component="img"
+    src={item.image}
+    alt={item.name}
+    sx={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      display: "block",
+      position: "relative",
+      zIndex: 0,
+    }}
+  />
+</Box>
+
 
                                         <Typography
                                             className="priceText"
                                             sx={{
-                                                position: "absolute", bottom: "40px", left: "50%", transform: "translateX(-50%)", color: "#ef6c57", fontSize: "20px", zIndex: 2,
+                                                position: "absolute", bottom: "40px", left: "50%", transform: "translateX(-50%)", color: "#ef6c57", fontSize: "20px", zIndex: 2,whiteSpace:"nowrap",
 
                                                 fontWeight: "bold", transition: "transform 0.3s ease", textShadow: "0px 0px 5px rgba(0,0,0,0.6)"
                                             }} >
-                                            {item.price}
+                                            {item.name}
                                         </Typography>
 
                                         <Typography

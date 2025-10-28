@@ -10,17 +10,44 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import { useEffect } from "react"
 
 const Hero = () => {
+    const travelDestinations = [
+        {
+            name: "Azad Kashmir",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQssTHL0PnaaRl90CeEQRRZRnBU7ah2BnchlA&s",
+            description: "Azad Kashmir is known for its lush green valleys, rivers, and snow-capped mountains, offering breathtaking natural beauty.",
+            travelRates: "PKR 18,000 per person",
+            durationDays: "5 Days / 4 Nights",
+            airline: "PIA",
+            totalAmount: "PKR 36,000 (for 2 persons)"
+        }, {
+            name: "Swat Valley",
+            image: "https://visitinpakistan.com/wp-content/uploads/2020/02/1-Alpurai-Swat-KPK-1-640x499-1.jpg",
+            description: "Swat is known as the 'Switzerland of Pakistan' for its lush valleys, lakes, and rivers surrounded by majestic mountains.",
+            travelRates: "PKR 20,000 per person",
+            durationDays: "5 Days / 4 Nights",
+            airline: "SereneAir",
+            totalAmount: "PKR 40,000 (for 2 persons)"
+        }, {
+            name: "Hunza Valley",
+            image: "https://www.jasminetours.com/wp-content/uploads/2024/01/hunza-valley-1-min.jpg",
+            description: "Hunza Valley is famous for its breathtaking mountains, peaceful lakes, and friendly locals.",
+            travelRates: "PKR 25,000 per person",
+            durationDays: "6 Days / 5 Nights",
+            airline: "AirBlue",
+            totalAmount: "PKR 50,000 (for 2 persons)"
+        },
+    ]
     const [slide, setSlide] = useState(0)
 
     const nextImage = () => setSlide((prev) => (prev === 0 ? 1 : 0))
     const prevImage = () => setSlide((prev) => (prev === 1 ? 0 : 1))
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextImage()
-    },4000)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            nextImage()
+        }, 4000)
 
-    return () => clearInterval(interval)
-  })
+        return () => clearInterval(interval)
+    })
     return (
         <>
             <Box sx={{ width: "100vw", overflow: "hidden", position: "relative" }}>
@@ -66,10 +93,11 @@ const Hero = () => {
                 </IconButton>
 
                 {/* Overlapping Image Cards */}
+
                 <Container maxWidth="lg" sx={{ padding: "20px", mt: { xs: -8, sm: -8, md: -10 }, position: "relative", zIndex: 10 }}>
                     <Grid container spacing={3} justifyContent="center">
-                        {[{ image: img_2, message: "Write down your experience" }, { image: img_1, message: "Explore asian mountain" }, { image: img_3, message: "Safe trip with airasia" }].map((data, index) => (
-                            <Grid size={{ xs: 12, sm: 6, md: 3.5 }} key={data.message} sx={{
+                        {travelDestinations.map((data, index) => (
+                            <Grid size={{ xs: 12, sm: 6, md: 3.5 }} key={data.name} sx={{
                                 overflow: "hidden", position: "relative",
                                 "&:hover .bgImage": { transform: "scale(1.1)" },
                                 "&:hover .text": { bottom: "40px" },
@@ -89,7 +117,7 @@ const Hero = () => {
                                 <Typography variant="h6" className="text" sx={{
                                     transition: "bottom 0.4s ease", position: "absolute",
                                     bottom: "30px", textAlign: "center", color: "#fff", marginLeft: "10px"
-                                }}>{data.message}</Typography>
+                                }}>{data.name}</Typography>
 
                             </Grid>
                         ))}

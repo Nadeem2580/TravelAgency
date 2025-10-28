@@ -58,7 +58,6 @@ const DestinationPage = () => {
 <Heading heading={"What people says"} text={null} />
 
 <Testimonials />
-<Cards />
     </>
   )
 }

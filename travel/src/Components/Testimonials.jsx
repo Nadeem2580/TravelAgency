@@ -9,11 +9,45 @@ import { useState } from 'react'
 const Testimonials = () => {
   const [slide, setSlide] = useState(0)
 
-  const testimonialObject = [
-    { image: img_1, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Clair Auhust," },
-    { image: img_2, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Jhon bush," },
-    { image: img_3, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Shoun catlin," }
-  ]
+  // const testimonialObject = [
+  //   { image: img_1, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Clair Auhust," },
+  //   { image: img_2, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Jhon bush," },
+  //   { image: img_3, description: "“Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quidem magnam accusamus consectetur ullam quae fugit odio officia beatae non temporibus pariatur inventore sit, doloremque velit.”", author: "__ Shoun catlin," }
+  // ]
+
+ const testimonialObject = [
+  {
+    author: "Azad Kashmir",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQssTHL0PnaaRl90CeEQRRZRnBU7ah2BnchlA&s",
+    description: "Azad Kashmir, often called the 'Paradise on Earth', is a region of unmatched beauty nestled in the foothills of the Himalayas. From the mesmerizing Neelum Valley to the sparkling waters of Rawalakot and Banjosa Lake, every corner offers a picture-perfect view. Travelers can enjoy boating in the serene lakes, trekking through lush forests, or simply relaxing amidst snow-capped peaks and cool mountain breeze. The local culture, traditional food, and warm hospitality make it one of Pakistan’s most unforgettable travel destinations.",
+    travelRates: "PKR 18,000 per person",
+    durationDays: "5 Days / 4 Nights",
+    airline: "PIA",
+    totalAmount: "PKR 36,000 (for 2 persons)"
+  },
+  {
+    author: "Swat Valley",
+    image: "https://visitinpakistan.com/wp-content/uploads/2020/02/1-Alpurai-Swat-KPK-1-640x499-1.jpg",
+    description: "Swat Valley, also known as the 'Switzerland of Pakistan', is a magical blend of crystal-clear rivers, lush meadows, and majestic mountains. The valley is home to famous spots like Malam Jabba, Fizaghat, and Kalam, where nature unfolds its charm in full glory. Visitors can explore ancient Buddhist sites, enjoy ziplining and chairlift rides at Malam Jabba, or experience the calm of the Swat River flowing gently through the valley. With cool weather throughout the year, it’s a dream destination for nature lovers and photographers alike.",
+    travelRates: "PKR 20,000 per person",
+    durationDays: "5 Days / 4 Nights",
+    airline: "SereneAir",
+    totalAmount: "PKR 40,000 (for 2 persons)"
+  },
+  {
+    author: "Hunza Valley",
+    image: "https://www.jasminetours.com/wp-content/uploads/2024/01/hunza-valley-1-min.jpg",
+    description: "Hunza Valley is one of Pakistan’s crown jewels — a land of towering peaks, turquoise rivers, and warm-hearted locals. The valley’s capital, Karimabad, is surrounded by iconic sites like Baltit Fort and Altit Fort that reflect centuries of rich history. The stunning Rakaposhi and Ultar Sar mountains dominate the skyline, while Passu Cones offer postcard-perfect views. In spring, Hunza transforms into a paradise of cherry blossoms, and in autumn, it’s painted with golden hues. Whether you’re hiking Eagle’s Nest, exploring Attabad Lake, or sipping apricot juice by the roadside, Hunza offers a life-changing experience you’ll never forget.",
+    travelRates: "PKR 25,000 per person",
+    durationDays: "6 Days / 5 Nights",
+    airline: "AirBlue",
+    totalAmount: "PKR 50,000 (for 2 persons)"
+  }
+];
+
+
+
+
 
   const next = () => {
     setSlide((prev) => (prev + 1) % 3);
@@ -73,11 +107,9 @@ const Testimonials = () => {
                   <Typography sx={{ mb: 1, color: "#333", fontSize: "1rem" }}>
                     {item.description}
                   </Typography>
-                  <Typography sx={{ fontWeight: "bold", color: "#000" }}>
+                  <Typography sx={{ fontWeight: "bold", color: "#ef6c57" }}>
                     {item.author}
-                    <Typography component="span" variant="caption" sx={{ color: "#ef6c57", fontSize: "16px" }}>
-                      Traveler
-                    </Typography>
+                   
                   </Typography>
                 </Box>
               </Box>

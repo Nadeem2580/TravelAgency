@@ -9,6 +9,7 @@ import Services from '../Components/Services'
 import Heading from '../Components/Heading'
 import Footer from '../Components/Footer'
 import Buttons from '../Components/Button'
+import { Box } from '@mui/material'
 
 export const Home = () => {
   return (
@@ -18,11 +19,17 @@ export const Home = () => {
 <Cards />
 <Heading heading={"Testimonials"} text={null} />
 <Testimonials />
+
+<Box sx={{marginTop:"30px", marginBottom:"30px"}}>
 <Heading heading={"Our Destinations"} text={"Choose your next destination"} />
+</Box>
+
 
 <Destination />
 <ParallaxHero />
-{/* <Heading heading={"Our Services"} text={"We Offer The Following Services"}/> */}
+<Box sx={{marginTop:"30px", marginBottom:"30px"}}>
+<Heading heading={"Our Services"} text={"We Offer The Following Services"}/>
+</Box>
 <Services />
 <Heading heading={"Want To Travel With Us?"} text={null}/>
 <Buttons />
