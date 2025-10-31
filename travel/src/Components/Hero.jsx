@@ -50,7 +50,7 @@ const Hero = () => {
     })
     return (
         <>
-            <Box sx={{ width: "100vw", overflow: "hidden", position: "relative" }}>
+            <Box sx={{   position: "relative" ,overflowX :"hidden"}}>
                 {/* Slider Section */}
                 <Box sx={{ display: "flex", width: "200%", transition: "transform 0.8s ease-in-out", transform: `translateX(-${slide * 50}%)` }}>
                     {/* Slide 1 */}

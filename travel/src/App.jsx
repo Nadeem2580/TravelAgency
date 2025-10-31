@@ -10,12 +10,16 @@ import Navbar from './Components/Navbar'
 import AboutPage from './Pages/About'
 import Contact from './Pages/Contact'
 import DestinationDetail from './Pages/DestinationDetail'
+import LoginPage from './Pages/Auth/Log-In/Login'
+import SignUp from './Pages/Auth/Sign-up/SignUp'
 
 function App() {
+  const token = localStorage.getItem("token")
 
+  console.log(token, "token")
   return (
     <>
-      <Navbar />
+      {token ? <Navbar /> : null}
       <Routes>
         <Route index element={<Home />} />
         <Route path='/destination' element={<DestinationPage />} />
@@ -23,9 +27,11 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path="/destination/:name" element={<DestinationDetail />} />
 
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignUp />} />
 
       </Routes>
-      <Footer />
+      {token ?<Footer /> : null}
     </>
   )
 }

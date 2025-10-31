@@ -67,7 +67,7 @@ const Testimonials = () => {
 
 
   return (
-    <Box sx={{ backgroundColor: "#f8f9fa", py: 6 }}>
+    <Box sx={{ backgroundColor: "#f8f9fa", py: 6 ,overflowX :"hidden"}}>
       <Container maxWidth="lg">
         {/* Heading */}
         {/* <Box sx={{ textAlign: "center" }}>
@@ -81,7 +81,7 @@ const Testimonials = () => {
           {/* first testimonial  */}
           {
             testimonialObject.map((item, index) => (
-              <Box key={item.author} sx={{ width: "100%", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" }, padding: "30px" }}>
+              <Box key={item.author} sx={{ width: "95%", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" }, padding: "30px" }}>
                 {/* Image */}
                 <Box component="img" src={item.image} sx={{
                   width: { xs: "100%", sm: "70%", md: "60%", lg: "45%" },
@@ -130,7 +130,6 @@ const Testimonials = () => {
           </IconButton>
         </Box>
         {/* Spacer to prevent overlap cutoff */}
-        <Box sx={{ height: { xs: "120px", md: "100px" } }} />
       </Container>
     </Box>
 

@@ -12,7 +12,9 @@ import Buttons from '../Components/Button'
 import { Box } from '@mui/material'
 
 export const Home = () => {
-  return (
+
+ 
+return (
     <>
   
 <Hero/>

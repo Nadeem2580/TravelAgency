@@ -1,0 +1,15 @@
+import mongoose, { mongo } from "mongoose"
+
+
+const schema = new mongoose.Schema({
+    fullName: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    userType: { enum: ["vendor", "user", "admin"] },
+    isVerified: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now() },
+})
+
+ const UserModel = mongoose.model("Users", schema)
+
+ export default UserModel
