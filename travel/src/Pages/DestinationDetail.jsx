@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Box, Container, Typography, TextField, Button, Divider } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import travelDestinations from "../assets/object";
 
 const DestinationDetail = () => {
   const { name } = useParams();
+ const navigate = useNavigate()
   const place = travelDestinations.find(dest => dest.name === name);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -34,12 +35,15 @@ const DestinationDetail = () => {
       <Typography variant="h4" fontWeight="bold" gutterBottom color="primary">{place.name}</Typography>
       <Typography sx={{ fontSize: "17px", lineHeight: 1.7, mb: 3 }}>{place.description}</Typography>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between",flexDirection:"column",gap:"10px", flexWrap: "wrap", mb: 2 }}>
-        <Typography ><b style={{color:"#ef6c57"}}>Travel Rate: </b> {place.travelRates}</Typography>
-        <Typography><b style={{color:"#ef6c57"}}>Duration:</b> {place.durationDays}</Typography>
-        <Typography><b style={{color:"#ef6c57"}}>Airline:</b> {place.airline}</Typography>
-        <Typography><b style={{color:"#ef6c57"}}>Total Amount:</b> {place.totalAmount}</Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "column", gap: "10px", flexWrap: "wrap", mb: 2 }}>
+        <Typography ><b style={{ color: "#ef6c57" }}>Travel Rate: </b> {place.travelRates}</Typography>
+        <Typography><b style={{ color: "#ef6c57" }}>Duration:</b> {place.durationDays}</Typography>
+        <Typography><b style={{ color: "#ef6c57" }}>Airline:</b> {place.airline}</Typography>
+        <Typography><b style={{ color: "#ef6c57" }}>Total Amount:</b> {place.totalAmount}</Typography>
       </Box>
+
+      <Button onClick={()=> navigate("/booking")} variant="contained" sx={{ backgroundColor: "#ef6c57", margin: "10px auto ", display: "block", px: 4, py: 1, fontSize: "1rem", transition: "border-radius 0.3s ease-in", ":hover": { borderRadius: "50px" } }}>Book Now </Button>
+
 
       <Divider sx={{ my: 3 }} />
 

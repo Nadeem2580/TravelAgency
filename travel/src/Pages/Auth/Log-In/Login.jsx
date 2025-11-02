@@ -20,10 +20,12 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios"
 import backimage from "../../../assets/loginImage.webp"
-// import Cookies from "js-cookie"
-// import { BASE_URL, toaster } from "../../utils/utils";
-// import AllRoutes from "../../All Api's";
+import toaster, { BASE_URL } from "../../utils/utils";
+import AllRoutes from "../../All Api's";
+import Cookies from "js-cookie"
+
 const LoginPage = () => {
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -48,23 +50,23 @@ const LoginPage = () => {
       console.log(response, "response")
 
       if (!response.data.status) {
-        // throw toaster({
-        //   message: "invalid email or password",
-        //   type: "error"
-        // })
+        throw toaster({
+          message: "invalid email or password",
+          type: "error"
+        })
       }
 
       Cookies.set("token", response.data.token)
 
-      // toaster({
-      //   message: "Login Successfully",
-      //   type: "success"
-      // })
+      toaster({
+        message: "Login Successfully",
+        type: "success"
+      })
     } catch (error) {
-      // toaster({
-      //   type: "error",
-      //   message: error.message
-      // })
+      toaster({
+        type: "error",
+        message: error.message
+      })
     }
 
 
@@ -77,10 +79,7 @@ const LoginPage = () => {
   const handleToggle = () => {
     setIsLogin(!isLogin);
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Implement validation and API calls here
-  // };
+
   return (
     <Box
       sx={{
@@ -119,7 +118,7 @@ const LoginPage = () => {
 
           {/* Email Field */}
           <Controller
-          
+
             name="email"
             control={control}
             render={({ field, fieldState: { error } }) => (

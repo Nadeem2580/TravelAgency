@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRouter from "./Src/Routes/authRoute.js";
 import { dbConnect } from "./Src/Configs/db.js";
+import bookingRoute from "./Src/Routes/bookingRoute.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 dotenv.config()
@@ -14,7 +15,7 @@ app.use(cors());
 
 // ----- Auth Routes-------
 app.use("/api/auth" , authRouter)
-
+app.use("/api" , bookingRoute)
 
 
 

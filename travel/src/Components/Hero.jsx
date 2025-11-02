@@ -8,8 +8,10 @@ import img_3 from "../assets/img_3.jpg"
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Hero = () => {
+    const navigate = useNavigate()
     const travelDestinations = [
         {
             name: "Azad Kashmir",
@@ -75,6 +77,7 @@ const Hero = () => {
                                 Journey beyond your imagination. Let’s find your next destination and make unforgettable memories.
                             </Typography>
                             <Button variant="contained"
+                            onClick={()=> navigate("/booking")}
                                 sx={{
                                     backgroundColor: "#ef6c57", margin: "50px auto ", display: "block", px: 4, py: 1.5, fontSize: "1rem",
                                     transition: "border-radius 0.3s ease-in", borderRadius: "8px", ":hover": { borderRadius: "50px" }

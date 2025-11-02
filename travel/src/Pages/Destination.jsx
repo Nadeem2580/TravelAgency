@@ -55,9 +55,9 @@ const DestinationPage = () => {
         <Destination />
       </Box>
 
-<Heading heading={"What people says"} text={null} />
+      <Heading heading={"What people says"} text={null} />
 
-<Testimonials />
+      <Testimonials />
     </>
   )
 }

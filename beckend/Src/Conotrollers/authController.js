@@ -65,6 +65,7 @@ export const longinContoller = async (req, res) => {
             })
         }
         const privateKey = process.env.PRIVATE_KEY;
+        console.log(privateKey , "privateKey")
         const token = jwt.sign({ id: user._id }, privateKey)
 
         return res.status(200).json({

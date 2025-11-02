@@ -19,8 +19,8 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-// import AllRoutes from "../../All Api's/index.js"
-// import { BASE_URL, toaster } from "../../utils/utils.js";
+import toaster, { BASE_URL } from "../../utils/utils";
+import AllRoutes from "../../All Api's";
 const SignUp = () => {
   const navigate = useNavigate()
   const schema = yup.object({
@@ -49,25 +49,25 @@ const SignUp = () => {
 
     try {
       if (obj.password !== obj.confirmPassword) {
-        // toaster({
-        //   message: "Credential is not valid",
-        //   type: "error"
-        // })
-        // return
+        toaster({
+          message: "Credential is not valid",
+          type: "error"
+        })
+        return
       }
       const signup = await axios.post(`${BASE_URL}${AllRoutes.signup}`, obj)
       reset()
-      // toaster({
-      //   message: "User created successfully",
-      //   type: "success"
-      // })
+      toaster({
+        message: "User created successfully",
+        type: "success"
+      })
       navigate("/")
 
     } catch (error) {
-      // toaster({
-      //   message: error.message,
-      //   type: "error"
-      // })
+      toaster({
+        message: error.message,
+        type: "error"
+      })
     }
   };
 
@@ -238,18 +238,54 @@ const SignUp = () => {
               <FormControl error={error}
 
                 helperText={error ? error.message : ""} component="fieldset" sx={{ color: "#ef6c57" }}>
-                <FormLabel sx={{ color: "#ef6c57" }}>Gender</FormLabel>
+                <FormLabel
+                  sx={{
+                    color: "#ef6c57",
+                    "&.Mui-focused": {
+                      color: "#ef6c57",
+                    },
+                  }}
+                >
+                  Gender
+                </FormLabel>
                 <RadioGroup row {...field} name="gender">
                   <FormControlLabel
                     value="male"
-                    control={<Radio sx={{ color: "#ef6c57" }} />}
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#ef6c57", // default color
+                          "&.Mui-checked": {
+                            color: "#ef6c57", // checked color
+                          },
+                          "&.Mui-focusVisible": {
+                            color: "#ef6c57", // when focused via keyboard
+                          },
+                        }}
+                      />
+                    }
                     label="Male"
                   />
+
+
                   <FormControlLabel
                     value="female"
-                    control={<Radio sx={{ color: "#ef6c57" }} />}
-                    label="Female"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "#ef6c57", // default color
+                          "&.Mui-checked": {
+                            color: "#ef6c57", // checked color
+                          },
+                          "&.Mui-focusVisible": {
+                            color: "#ef6c57", // when focused via keyboard
+                          },
+                        }}
+                      />
+                    }
+                    label="female"
                   />
+
 
                 </RadioGroup>
               </FormControl>

@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    userType: { enum: ["vendor", "user", "admin"] },
+    gender:{type:String , required:true},
+    userType: { enum: ["user", "admin"] },
     isVerified: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now() },
 })
