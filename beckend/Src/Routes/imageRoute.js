@@ -1,10 +1,12 @@
 import express from "express"
-import authMiddleware from "../Middlewares/authmiddleware.js";
-import upload from "../Middlewares/cloudinary.js";
+import authMiddleware from "../Middlewares/authmiddleware.js"
+import upload from "../Middlewares/cloudinary.js"
 import { uploadImageContoller } from "../Conotrollers/imageController.js";
+
+
 const uploadImage = express.Router();
 
-uploadImage.post("/upload-image",[authMiddleware, upload.any("image")],uploadImageContoller);
+uploadImage.post("/upload-image", upload.single("Image"),uploadImageContoller);
 
 
 export default uploadImage;

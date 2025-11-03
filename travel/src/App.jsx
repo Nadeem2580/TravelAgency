@@ -18,6 +18,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from './Theme'
 import BookingSuccess from './Pages/Success/Success'
+import AdminDahsboard from './Pages/Admin/AdminDahsboard'
+import CreateTour from './Pages/Admin/CreateTour'
 function App() {
   const token = localStorage.getItem("token")
 
@@ -38,6 +40,10 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/booking' element={<BookingForm />} />
         <Route path='/success' element={<BookingSuccess />} />
+        
+        {/* Admin Route */}
+        <Route path='/admin' element={<AdminDahsboard />} />
+        <Route path='/creat_tour' element={<CreateTour />} />
 
       </Routes>
       {token ? <Footer /> : null}

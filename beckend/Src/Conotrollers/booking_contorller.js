@@ -1,4 +1,5 @@
 import BookingModel from "../ModelSchema/boooking.js"
+import TourModel from "../ModelSchema/Tour.js"
 
 export const booking_contorller = async (req, res) => {
     try {
@@ -21,15 +22,40 @@ export const booking_contorller = async (req, res) => {
         const obj = {
             fullName, email, whatsAppNo, destination, travelDate, noOfPerson
         }
-        const bookingRes= await BookingModel.create(obj)
+        const bookingRes = await BookingModel.create(obj)
         return res.status(200).json({
             message: "Booking Request Succefull",
             status: true,
-            res : bookingRes
+            res: bookingRes
 
         })
 
     } catch (error) {
+        res.status(200).json({
+            message: error.message,
+            status: false,
 
+        })
+    }
+}
+
+export const add_tour_contorller = async (req, res) => {
+    try {
+        const body = req.body
+        const resTour = await TourModel.create(body)
+
+        return res.status(200).json({
+            message: "Tour added Succefully",
+            status: true,
+            res: resTour
+
+        })
+
+    } catch (error) {
+        res.status(200).json({
+            message: error.message,
+            status: false,
+
+        })
     }
 }

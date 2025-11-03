@@ -24,9 +24,9 @@ const Services = () => {
     return (
         <>
         <Container maxWidth="lg" sx={{ marginTop: "30px" }}>
-            <Grid container spacing={2} sx={{ margin: "0 auto", display: "flex", gap: "30px", padding: "10px 40px" }}>
+            <Grid container spacing={2} sx={{ margin: "0 auto", display: "flex", padding: "10px 40px" }}>
                 {obj.map((item, index) => (
-                    <Grid key={item.title} size={{ xs: 12, md: 6, lg: 3.5 }} justifyContent={"center"} sx={{p:2,borderRadius:"5px",":hover":{
+                    <Grid key={item.title} size={{ xs: 12, md: 6, lg: 3 }} justifyContent={"center"} sx={{p:2,borderRadius:"5px",":hover":{
                             boxShadow:"0 0 5px black"
                         }}}>
                         <Box  >
