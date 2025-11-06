@@ -59,3 +59,23 @@ export const add_tour_contorller = async (req, res) => {
         })
     }
 }
+
+export const get_all_tour = async (req, res) => {
+    try {
+        const data = await TourModel.find({})
+
+        return res.status(200).json({
+            message: "All Tour Data Fetched Succefully",
+            status: true,
+            res: data
+
+        })
+
+    } catch (error) {
+        res.status(200).json({
+            message: error.message,
+            status: false,
+
+        })
+    }
+}

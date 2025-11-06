@@ -66,8 +66,8 @@ const CreateTour = () => {
                     },
                 });
 
-                console.log("imageResponse", imageResponse);
                 imageUrl = imageResponse.data.url;
+
             }
 
             console.log(imageUrl, "imageUrl")
@@ -83,10 +83,12 @@ const CreateTour = () => {
 
             const tourRes = await axios.post(`${BASE_URL}${AllRoutes.addTour}`, tourAdd)
 
-            console.log(tourRes, "tourRes")
             reset()
-
-
+            setImage(null)
+            toaster({
+                type: "success",
+                message: "Tour Added Successfuly"
+            })
 
         } catch (error) {
             toaster({
@@ -188,7 +190,7 @@ const CreateTour = () => {
                         control={control}
                         render={({ field, fieldState: { error } }) => (
                             <TextField
-                            placeholder="6 Days / 5 Nights"
+                                placeholder="6 Days / 5 Nights"
                                 label="Traveling duration"
                                 {...field}
                                 error={!!error}
@@ -216,7 +218,7 @@ const CreateTour = () => {
                     {/* Image */}
 
                     {/* Image Upload Field */}
-                    <Button variant="outlined" component="label" sx={{borderColor:"#ef6c57", color:"#ef6c57"}}>
+                    <Button variant="outlined" component="label" sx={{ borderColor: "#ef6c57", color: "#ef6c57" }}>
                         Upload Logo
                         <input
                             type="file"
