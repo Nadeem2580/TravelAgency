@@ -16,14 +16,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toaster, { BASE_URL } from "../utils/utils";
 import AllRoutes from "../All Api's";
 import axios from "axios";
 
 const CreateTour = () => {
 
-
+const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [image, setImage] = useState(null);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -89,7 +89,7 @@ const CreateTour = () => {
                 type: "success",
                 message: "Tour Added Successfuly"
             })
-
+            navigate("/admin")
         } catch (error) {
             toaster({
                 type: "error",
@@ -173,6 +173,7 @@ const CreateTour = () => {
                     <Controller
                         name="rate"
                         control={control}
+                        placeholder="PKR 10,000 person "
                         render={({ field, fieldState: { error } }) => (
                             <TextField
                                 label="Travel Rate"
@@ -187,6 +188,7 @@ const CreateTour = () => {
                     {/* Traveling Duration */}
                     <Controller
                         name="duration"
+                        placeholder="3 Days / 2 Nights"
                         control={control}
                         render={({ field, fieldState: { error } }) => (
                             <TextField

@@ -3,7 +3,7 @@ import { Bounce, toast } from 'react-toastify';
 
 const toaster = (obj) => {
     switch (obj.type) {
-        case "success": toast.success(obj.message, {
+        case "success":return toast.success(obj.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -14,7 +14,7 @@ const toaster = (obj) => {
             theme: "light",
             transition: Bounce,
         });
-        case "error": toast.error(obj.message, {
+        case "error":return toast.error(obj.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -29,5 +29,5 @@ const toaster = (obj) => {
     }
 }
 
-export const BASE_URL = `http://localhost:3000` 
+export const BASE_URL = `http://localhost:3000`
 export default toaster

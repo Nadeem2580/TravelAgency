@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-
+import pakTravelAgency from "../assets/pakTravelAgency.png"
 const pages = [
     { "title": "Home", url: "/" },
     { "title": "Destination", url: "/destination" },
@@ -46,52 +46,18 @@ function Navbar({ children }) {
 
                 <Toolbar disableGutters>
                     {/* Descktop Logo */}
+                    <Box component={"img"} src={pakTravelAgency} sx={{ width: "100px" }} />
 
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            color:"#ef6c57"
-                        }}
-                    >
-                        Pak Tavelers
-                    </Typography>
 
 
                     {/* Mobile logo */}
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            color:"#ef6c57"
-                        }}
-                    >
-                        Pak Tavelers
-                    </Typography>
+
+                    <Box component={"img"} src={pakTravelAgency} sx={{ width: "100px", display: { xs: 'flex', md: 'none' }, }} />
                     {/* Descktop Links */}
                     <Box sx={{ color: "#555", flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "end" }}>
                         {pages.map((page) => (
 
-                            <Link to={`${page.url}`} key={page.title} style={{textDecoration:"none"}}>
+                            <Link to={`${page.url}`} key={page.title} style={{ textDecoration: "none" }}>
                                 <Button
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block', color: "#555", fontSize: "13px", fontWeight: "bold", }}
@@ -132,7 +98,9 @@ function Navbar({ children }) {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                                    <Typography sx={{ textAlign: 'center', color: "#555" }}>{page.title}</Typography>
+                                    <Link to={`${page.url}`} key={page.title} style={{ textDecoration: "none" }}>
+                                        <Typography sx={{ textAlign: 'center', color: "#555" }}>{page.title}</Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>

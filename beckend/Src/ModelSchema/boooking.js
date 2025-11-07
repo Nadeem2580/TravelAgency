@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
     whatsAppNo: { type: String, required: true },
     destination: { type: String, required: true },
     travelDate: { type: String, required: true },
+    confirmation: { type: String, required: true },
     noOfPerson: { type: String, required: true }
 
 })

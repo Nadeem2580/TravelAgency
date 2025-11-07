@@ -4,6 +4,11 @@ import { Box, Chip, Stack, Card, CardActions, CardContent, CardHeader, CardMedia
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import { useState } from 'react';
+import EditingModal from './EditModal';
+import { ContentPasteOffSharp } from '@mui/icons-material';
+import toaster, { BASE_URL } from '../utils/utils';
+import AllRoutes from '../All Api\'s';
+import axios from 'axios';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -16,14 +21,36 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function TourCard({ data }) {
+export default function TourCard({ data,isRefresh,setIsRefresh }) {
     const [expanded, setExpanded] = React.useState(false);
     const [anchorEl, setAnchorEl] = useState(false)
+    
     const handleExpandClick = () => setExpanded(!expanded);
-const onEdit = (data)=>{
-console.log(data , "data edit")
-}
 
+    // Modal Handling Code
+    const [editModal, setEditModal] = useState(false)
+    const [selectedData, setSelectedData] = useState(null);
+
+    const deleteTour = async (data) => {
+        try {
+            console.log(data, "delete")
+            const deleteRes = await axios.delete(
+                `${BASE_URL}${AllRoutes.delete_Tour}/${data._id}`);
+
+            console.log("deleteRes:", deleteRes);
+            toaster({
+                message: "Tour deleted successfully",
+                type: "success"
+            })
+            setIsRefresh(!isRefresh)
+        } catch (error) {
+            console.error("Error updating tour:", error);
+            toaster({
+                message: error.message || "Something went wrong",
+                type: "error"
+            })
+        }
+    };
 
 
     return (
@@ -47,13 +74,15 @@ console.log(data , "data edit")
                             open={Boolean(anchorEl)}
                             onClose={() => setAnchorEl(null)}
                         >
-                            <MenuItem sx={{ fontSize: "10px", fontWeight: "bold" }} onClick={() => { onEdit(data)}}>Edit</MenuItem>
-                            <MenuItem sx={{ fontSize: "10px", fontWeight: "bold" }} onClick={() => { /* Delete action */ }}>Delete</MenuItem>
+                            <MenuItem sx={{ fontSize: "10px", fontWeight: "bold" }} onClick={() => {
+                                setSelectedData(data);
+                                setEditModal(true)
+                            }}>Edit</MenuItem>
+                            <MenuItem sx={{ fontSize: "10px", fontWeight: "bold" }} onClick={() => deleteTour(data)}>Delete</MenuItem>
                         </Menu>
                     </>
                 }
-                title={data.name}
-                subheader={`Duration: ${data.durationDays}`}
+                title={data.title}
             />
 
 
@@ -63,18 +92,28 @@ console.log(data , "data edit")
             <Box sx={{ px: 2, py: 1 }}>
                 <Stack direction="row" justifyContent="space-between">
                     <Chip
-                        label={`✈️ ${data.airline}`}
+                        label={`${data.airline}`}
                         sx={{
-                            bgcolor: 'primary.main',
+                            bgcolor: '#ef6c57',
                             color: 'white',
                             fontWeight: 600,
                             fontSize: 13,
                         }}
                     />
                     <Chip
-                        label={`💰 ${data.travelRates}`}
+                        label={` ${data.duration}`}
                         sx={{
-                            bgcolor: 'secondary.main',
+                            bgcolor: '#ef6c57',
+                            color: 'white',
+                            fontWeight: 600,
+                            fontSize: 13,
+                        }}
+                    />
+
+                    <Chip
+                        label={` ${data.rate}`}
+                        sx={{
+                            bgcolor: '#ef6c57',
                             color: 'white',
                             fontWeight: 600,
                             fontSize: 13,
@@ -86,7 +125,7 @@ console.log(data , "data edit")
             {/* Description */}
             <CardContent sx={{ pt: 0.5, pb: 1 }}>
                 <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
-                    {data?.description?.slice(0, 120)}
+                    {data?.detail?.slice(0, 120)}
                     {!expanded && (
                         <span
                             onClick={handleExpandClick}
@@ -99,7 +138,7 @@ console.log(data , "data edit")
 
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
-                        {data?.description?.slice(120)}
+                        {data?.detail?.slice(120)}
                     </Typography>
 
                     <Typography
@@ -119,7 +158,11 @@ console.log(data , "data edit")
             </CardContent>
 
             {/* Smooth expanding section */}
-
+            {
+                editModal &&
+                <EditingModal open={editModal} close={() => setEditModal(false)} dataEdit={selectedData} 
+             isRefresh={isRefresh} setIsRefresh={setIsRefresh} />
+            }
         </Card>
     );
 }

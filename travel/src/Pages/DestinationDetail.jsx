@@ -5,7 +5,7 @@ import travelDestinations from "../assets/object";
 
 const DestinationDetail = () => {
   const { name } = useParams();
- const navigate = useNavigate()
+  const navigate = useNavigate()
   const place = travelDestinations.find(dest => dest.name === name);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -42,7 +42,7 @@ const DestinationDetail = () => {
         <Typography><b style={{ color: "#ef6c57" }}>Total Amount:</b> {place.totalAmount}</Typography>
       </Box>
 
-      <Button onClick={()=> navigate("/booking")} variant="contained" sx={{ backgroundColor: "#ef6c57", margin: "10px auto ", display: "block", px: 4, py: 1, fontSize: "1rem", transition: "border-radius 0.3s ease-in", ":hover": { borderRadius: "50px" } }}>Book Now </Button>
+      <Button onClick={() => navigate("/booking")} variant="contained" sx={{ backgroundColor: "#ef6c57", margin: "10px auto ", display: "block", px: 4, py: 1, fontSize: "1rem", transition: "border-radius 0.3s ease-in", ":hover": { borderRadius: "50px" } }}>Booking Now </Button>
 
 
       <Divider sx={{ my: 3 }} />

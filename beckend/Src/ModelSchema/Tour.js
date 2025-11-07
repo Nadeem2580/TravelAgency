@@ -7,6 +7,7 @@ const schema = new mongoose.Schema({
     rate: { type: String, required: true },
     airline: { type: String, required: true },
     image: { type: String, required: true },
+    duration: { type: String, required: true},
     status: { type: Boolean, required: true, default: false },
     createdAt: { type: Date, default: Date.now() },
 
