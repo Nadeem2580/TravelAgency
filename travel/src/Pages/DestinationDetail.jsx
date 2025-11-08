@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Container, Typography, TextField, Button, Divider } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import travelDestinations from "../assets/object";
+import { useEffect } from "react";
 
 const DestinationDetail = () => {
   const { name } = useParams();
@@ -22,6 +23,9 @@ const DestinationDetail = () => {
     }
   };
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   if (!place) return <Typography>Destination not found.</Typography>;
 
   return (

@@ -125,7 +125,7 @@ const BookingForm = () => {
           control={control}
           rules={{ required: "Enter number of noOfPerson" }}
           render={({ field }) => (
-            <TextField {...field} label="No. of noOfPerson" type="number" fullWidth margin="normal"
+            <TextField {...field} label="No.of Person" type="number" fullWidth margin="normal"
               error={!!errors.noOfPerson}
               helperText={errors.noOfPerson?.message} />
           )}

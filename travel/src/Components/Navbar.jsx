@@ -11,8 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import pakTravelAgency from "../assets/pakTravelAgency.png"
+import Cookies from "js-cookie"
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 const pages = [
     { "title": "Home", url: "/" },
     { "title": "Destination", url: "/destination" },
@@ -23,7 +27,8 @@ const pages = [
 function Navbar({ children }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const token = Cookies.get("token")
+    const navigate = useNavigate()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -39,14 +44,27 @@ function Navbar({ children }) {
         setAnchorElUser(null);
     };
 
+  const handleAuth = () => {
+    if (token) {
+      // Logout logic
+      Cookies.remove("token");
+      window.location.reload(); // Optional: refresh page after logout
+    } else {
+      // Login logic
+     navigate("/login") // Redirect to login page
+    }
+  };
+
+
+
     return (
         <>
 
-            <Container maxWidth="lg" sx={{ backgroundColor: "#fff" }}>
+            <Container maxWidth="lg" sx={{ backgroundColor: "#fff",boxShadow:"0 1px #ef6c57" }}>
 
                 <Toolbar disableGutters>
                     {/* Descktop Logo */}
-                    <Box component={"img"} src={pakTravelAgency} sx={{ width: "100px" }} />
+                    <Box component={"img"} src={pakTravelAgency} sx={{ width: "100px", display: { xs: 'none', md: 'flex' }, }} />
 
 
 
@@ -94,7 +112,7 @@ function Navbar({ children }) {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{ display: { xs: 'block', md: 'none' } }}
+                            sx={{ display: { xs: 'block', md: 'none' }}}
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
@@ -105,6 +123,22 @@ function Navbar({ children }) {
                             ))}
                         </Menu>
                     </Box>
+                    <Button
+                        onClick={handleAuth}
+                        startIcon={token ? <LogoutIcon sx={{fontSize:"14px !important"}} /> : <LoginIcon  sx={{fontSize:"14px !important"}}/>}
+                        sx={{
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            boxShadow: "0 0 2px black",
+                            textTransform: "none",
+                            color: "black",
+                            color:"#ef6c57",
+                            backgroundColor: "#f5f5f5",
+                            "&:hover": { backgroundColor: "#ddd" }
+                        }}
+                    >
+                        {token ? "Logout" : "Login"}
+                    </Button>
                 </Toolbar>
             </Container>
             {children}

@@ -27,9 +27,9 @@ export default function AdminDashboard() {
     <>
     <Container >
 
-      <Typography variant="h5" sx={{ mb: 3, color: '#333', fontWeight: 'bold' }}>
+      {/* <Typography variant="h5" sx={{ mb: 3, color: '#333', fontWeight: 'bold' }}>
         Manage Travel Packages
-      </Typography>
+      </Typography> */}
 
       <Grid container spacing={2}>
         {allData.map((item, index) => (

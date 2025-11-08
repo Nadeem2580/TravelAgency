@@ -1,34 +1,34 @@
 import { ThemeProvider } from "@mui/material/styles"
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import './App.css'
-import Footer from './Components/Footer'
-import Navbar from './Components/Navbar'
 import AboutPage from './Pages/About'
 import AdminBooking from './Pages/Admin/AdminBooking'
 import AdminDashboard from './Pages/Admin/AdminDahsboard'
 import CreateTour from './Pages/Admin/CreateTour'
-import AdminLayout from './Pages/Admin/Layout/AdminLayout'
 import Users from './Pages/Admin/Users'
 import LoginPage from './Pages/Auth/Log-In/Login'
+import OTPpage from "./Pages/Auth/OtpVerification"
 import SignUp from './Pages/Auth/Sign-up/SignUp'
 import BookingForm from './Pages/BookingForm'
 import Contact from './Pages/Contact'
 import DestinationPage from './Pages/Destination'
 import DestinationDetail from './Pages/DestinationDetail'
 import Home from './Pages/Home'
-import BookingSuccess from './Pages/Success/Success'
-import theme from './Theme'
+import AdminRoute from "./Pages/Routes/AdminRoute"
 import Auth from "./Pages/Routes/Auth"
 import UserRoute from "./Pages/Routes/UserRoute"
+import BookingSuccess from './Pages/Success/Success'
+import theme from './Theme'
 function App() {
- 
-  const location = useLocation().pathname
+
+
+
   return (
     <>
       <ThemeProvider theme={theme}>
 
-        {location == "/login" ? null : location == "/signup" ? null : <Navbar />}
+
 
         <Routes>
           <Route index element={<Home />} />
@@ -40,6 +40,7 @@ function App() {
           <Route element={<Auth />}>
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='/otp-verify' element={<OTPpage />} />
           </Route>
 
 
@@ -50,16 +51,14 @@ function App() {
           </Route>
 
           {/* Admin Route */}
-
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="creat_tour" element={<CreateTour />} />
-            <Route path="admin-user" element={<Users />} />
-            <Route path="admin-booking" element={<AdminBooking />} />
+          <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="creat_tour" element={<CreateTour />} />
+              <Route path="/admin/admin-user" element={<Users />} />
+              <Route path="/admin/admin-booking" element={<AdminBooking />} />
           </Route>
 
         </Routes>
-        {location == "/login" ? null : location == "/signup" ? null : <Footer />}
 
 
 

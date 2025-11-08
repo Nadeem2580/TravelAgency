@@ -1,10 +1,12 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import UserModel from "../ModelSchema/UserSchema.js"
+import nodemailer from "nodemailer";
+import OTPModel from "../ModelSchema/otp.js";
+import { SignupEmailTemplate } from "../../template/emailTemplate.js";
 export const signUPConroller = async (req, res) => {
     try {
         const body = req.body
-
         const { fullName, email, password, confirmPassword } = body
         const getEmail = await UserModel.findOne({ email })
         if (getEmail) {
@@ -30,6 +32,30 @@ export const signUPConroller = async (req, res) => {
 
         }
         await UserModel.create(obj)
+        const transporter = nodemailer.createTransport({
+            service: "Gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.otpEmail,
+                pass: process.env.appPassword
+            }
+        });
+        const otp = Math.floor(100000 + Math.random() * 900000);
+
+        const mailOptions = {
+            from: process.env.email,
+            to: obj.email,
+            subject: "User signup",
+            html: SignupEmailTemplate(obj, otp)
+        }
+
+        const userEmail = await transporter.sendMail(mailOptions)
+        console.log(userEmail, "userEmail")
+        await OTPModel.create({
+            otp, email: obj.email
+        })
         res.status(200).json({
             message: "Succefully signup",
             status: true,
@@ -65,7 +91,7 @@ export const longinContoller = async (req, res) => {
             })
         }
         const privateKey = process.env.PRIVATE_KEY;
-        console.log(privateKey , "privateKey")
+        console.log(privateKey, "privateKey")
         const token = jwt.sign({ id: user._id }, privateKey)
 
         return res.status(200).json({
@@ -81,5 +107,30 @@ export const longinContoller = async (req, res) => {
             message: error.message || "Server Error",
             status: false,
         });
+    }
+}
+
+export const verify_otp_controller = async (req, res) => {
+    try {
+        const { email, otp } = req.body
+        const checkOtp = await OTPModel.findOne({ email, otp, isUsed: false })
+        if (!checkOtp) {
+            return res.status(400).json({
+                message: "Invalid otp", status: false
+            })
+        }
+        checkOtp.isUsed = true
+        await checkOtp.save()
+
+        const updateVerify = await UserModel.findOneAndUpdate({ email }, { isVerified: true })
+        console.log(updateVerify)
+        res.status(200).json({
+            message: "Otp Verified", status: true,
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            message: error.message, status: false,
+        })
     }
 }

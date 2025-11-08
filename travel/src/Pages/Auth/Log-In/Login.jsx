@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
@@ -23,9 +23,9 @@ import backimage from "../../../assets/loginImage.webp"
 import toaster, { BASE_URL } from "../../utils/utils";
 import AllRoutes from "../../All Api's";
 import Cookies from "js-cookie"
-
+import homeImage from "../../../assets/homeImage.png"
 const LoginPage = () => {
-
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -56,12 +56,27 @@ const LoginPage = () => {
         })
       }
 
-      Cookies.set("token", response.data.token)
+      if (!response.data.data.isVerified) {
+        navigate("/otp-verify", {
+          state: {
+            email: obj.email,
+            page: "login"
+          }
+        })
+        return
+      }
+
+      const token = {
+        token: response.data.token,
+        type: response.data.data.type
+      }
+      Cookies.set("token", JSON.stringify(token));
 
       toaster({
         message: "Login Successfully",
         type: "success"
       })
+      navigate("/")
     } catch (error) {
       toaster({
         type: "error",
@@ -81,25 +96,31 @@ const LoginPage = () => {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        p: { xs: 2, sm: 3, md: 4 }, // ✅ padding keeps spacing without scroll
-        backgroundColor: "#f5f5f5",
-      }}
-    >
+    <Box sx={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      // backgroundColor: "#f5f5f5",
+      p: { xs: 2, sm: 3, md: 4 }
+    }}>
+      <Box sx={{ position: "absolute", top: "20px", left: "20px" }}> <Box component={"img"} src={homeImage} alt="Home"
+        onClick={() => navigate("/")} sx={{ width: "50px", cursor: "pointer" }} /></Box>
       <Box
         sx={{
           boxShadow: "0 0 3px #ef6c57",
           borderRadius: "10px",
-          width: { xs: "100%", md: "70%", lg: "45%", xl: "40%" },
-          p: { xs: "20px", md: "40px", xl: "60px" },
           backgroundColor: "#fff",
-          overflow: "visible", // ✅ ensures labels don’t get cut
+          overflow: "visible",
+          flexShrink: 0,
+          width: {
+            xs: "90%",  // almost full width on extra small screens
+            sm: "70%",  // smaller on small devices
+            md: "40%",  // medium devices
+            lg: "30%",  // large devices and up
+          },
+          maxWidth: "400px",  // limit max width for very large screens
+          p: { xs: 2, sm: 3 },  // padding responsive as well
         }}
       >
         <Box
@@ -108,10 +129,8 @@ const LoginPage = () => {
           sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 2 }}
         >
           <Typography
-            variant="h4"
             textAlign="center"
-            sx={{ fontWeight: 600, color: "#ef6c57" }}
-
+            sx={{ fontWeight: 600, color: "#ef6c57", fontSize: { xs: "1rem", md: "1.8rem" } }}
           >
             Login to dashboard
           </Typography>

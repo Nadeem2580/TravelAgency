@@ -21,6 +21,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import toaster, { BASE_URL } from "../../utils/utils";
 import AllRoutes from "../../All Api's";
+import homeImage from "../../../assets/homeImage.png"
+
 const SignUp = () => {
   const navigate = useNavigate()
   const schema = yup.object({
@@ -49,19 +51,25 @@ const SignUp = () => {
 
     try {
       if (obj.password !== obj.confirmPassword) {
-        toaster({
+        return toaster({
           message: "Credential is not valid",
           type: "error"
         })
-        return
       }
       const signup = await axios.post(`${BASE_URL}${AllRoutes.signup}`, obj)
       reset()
+
       toaster({
         message: "User created successfully",
         type: "success"
       })
-      navigate("/")
+
+      navigate("/otp-verify", {
+        state: {
+          email: obj.email,
+          page: "signup"
+        }
+      })
 
     } catch (error) {
       toaster({
@@ -72,8 +80,27 @@ const SignUp = () => {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", margin: "20px" }}>
-      <Box sx={{ boxShadow: "0 0 5px #ef6c57", borderRadius: "10px", width: { xs: "100%", md: "70%", lg: "45%", xl: "40%" }, padding: { xs: "20px", md: "40px", lg: "40px", xl: "60px" }, }} >
+    <Box sx={{ position: "relative", minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", margin: "20px" }}>
+      <Box sx={{ position: "absolute", top: 0, left: 0 }}> <Box component={"img"} src={homeImage} alt="Home"
+        onClick={() => navigate("/")} sx={{ width: "50px", cursor: "pointer" }} /></Box>
+      <Box
+        sx={{
+          boxShadow: "0 0 3px #ef6c57",
+          borderRadius: "10px",
+          backgroundColor: "#fff",
+          overflow: "visible",
+          flexShrink: 0,
+          width: {
+            xs: "90%",  // almost full width on extra small screens
+            sm: "70%",  // smaller on small devices
+            md: "40%",  // medium devices
+            lg: "30%",  // large devices and up
+          },
+          maxWidth: "400px",  // limit max width for very large screens
+          p: { xs: 2, sm: 3 },  // padding responsive as well
+        }}
+      >
+
         <Box
           component={"form"}
           onSubmit={handleSubmit(onSubmit)}
@@ -82,7 +109,7 @@ const SignUp = () => {
           {/* Heading */}
           <Typography
             sx={{
-              fontSize: { xs: "1.25rem", sm: "1.5rem", md: "2.125rem", },
+              fontSize: { xs: "1rem", md: "1.5rem", },
               fontWeight: "bold", color: "#ef6c57",
             }}
             textAlign={"center"}>

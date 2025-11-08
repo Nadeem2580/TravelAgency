@@ -2,6 +2,7 @@
 const AllRoutes = {
     login: "/api/auth/login",
     signup: "/api/auth/signup",
+    otp: "/api/auth/otp-verification",
     booking: "/api/booking",
     image: "/api/upload-image",
     addTour: "/api/add-tour",
@@ -12,7 +13,7 @@ const AllRoutes = {
     update_users: "/api/users-update",
     fetch_booking: "/api/all-booking",
     update_booking: "/api/update-booking",
-    
+
 }
 
 export default AllRoutes

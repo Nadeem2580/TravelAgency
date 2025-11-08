@@ -52,7 +52,7 @@ const Hero = () => {
     })
     return (
         <>
-            <Box sx={{   position: "relative" ,overflowX :"hidden"}}>
+            <Box sx={{ position: "relative", overflowX: "hidden" }}>
                 {/* Slider Section */}
                 <Box sx={{ display: "flex", width: "200%", transition: "transform 0.8s ease-in-out", transform: `translateX(-${slide * 50}%)` }}>
                     {/* Slide 1 */}
@@ -63,7 +63,7 @@ const Hero = () => {
                             <Typography sx={{ mb: 3 }}>
                                 Discover the beauty of the world with us — your journey starts here. Explore, dream, and travel without limits.
                             </Typography>
-                            <Button variant="contained" sx={{ backgroundColor: "#ef6c57", px: 4, py: 1.5, fontSize: "1rem", borderRadius: "8px", transition: "all 0.3s ease-in-out", ":hover": { borderRadius: "50px" } }}>
+                            <Button onClick={() => navigate("/booking")} variant="contained" sx={{ backgroundColor: "#ef6c57", px: 4, py: 1.5, fontSize: "1rem", borderRadius: "8px", transition: "all 0.3s ease-in-out", ":hover": { borderRadius: "50px" } }}>
                                 Book Now
                             </Button>
                         </Box>
@@ -77,7 +77,7 @@ const Hero = () => {
                                 Journey beyond your imagination. Let’s find your next destination and make unforgettable memories.
                             </Typography>
                             <Button variant="contained"
-                            onClick={()=> navigate("/booking")}
+                                onClick={() => navigate("/booking")}
                                 sx={{
                                     backgroundColor: "#ef6c57", margin: "50px auto ", display: "block", px: 4, py: 1.5, fontSize: "1rem",
                                     transition: "border-radius 0.3s ease-in", borderRadius: "8px", ":hover": { borderRadius: "50px" }
