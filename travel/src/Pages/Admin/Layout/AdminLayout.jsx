@@ -31,7 +31,7 @@ const AdminLayout = () => {
       <AppBar position="fixed" sx={{ bgcolor: '#ef6c57' }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={toggleDrawer}><Menu /></IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>Travel Agency Admin</Typography>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>Admin Dashboard</Typography>
           <Button color="inherit" onClick={() => navigate("/admin/creat_tour")} startIcon={<AddCircle />}>
             Add Package
           </Button>

@@ -27,7 +27,9 @@ const pages = [
 function Navbar({ children }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const token = Cookies.get("token")
+    const stored = Cookies.get("token");
+    const token = stored ? JSON.parse(stored) : null;
+
     const navigate = useNavigate()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -44,23 +46,23 @@ function Navbar({ children }) {
         setAnchorElUser(null);
     };
 
-  const handleAuth = () => {
-    if (token) {
-      // Logout logic
-      Cookies.remove("token");
-      window.location.reload(); // Optional: refresh page after logout
-    } else {
-      // Login logic
-     navigate("/login") // Redirect to login page
-    }
-  };
+    const handleAuth = () => {
+        if (token) {
+            // Logout logic
+            Cookies.remove("token");
+            navigate("/") // Optional: refresh page after logout
+        } else {
+            // Login logic
+            navigate("/login") // Redirect to login page
+        }
+    };
 
 
 
     return (
         <>
 
-            <Container maxWidth="lg" sx={{ backgroundColor: "#fff",boxShadow:"0 1px #ef6c57" }}>
+            <Container maxWidth="lg" sx={{ backgroundColor: "#fff", boxShadow: "0 1px #ef6c57" }}>
 
                 <Toolbar disableGutters>
                     {/* Descktop Logo */}
@@ -112,7 +114,7 @@ function Navbar({ children }) {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{ display: { xs: 'block', md: 'none' }}}
+                            sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
@@ -123,22 +125,39 @@ function Navbar({ children }) {
                             ))}
                         </Menu>
                     </Box>
-                    <Button
-                        onClick={handleAuth}
-                        startIcon={token ? <LogoutIcon sx={{fontSize:"14px !important"}} /> : <LoginIcon  sx={{fontSize:"14px !important"}}/>}
-                        sx={{
-                            fontSize: "12px",
-                            fontWeight: "bold",
-                            boxShadow: "0 0 2px black",
-                            textTransform: "none",
-                            color: "black",
-                            color:"#ef6c57",
-                            backgroundColor: "#f5f5f5",
-                            "&:hover": { backgroundColor: "#ddd" }
-                        }}
-                    >
-                        {token ? "Logout" : "Login"}
-                    </Button>
+                    {
+                        token.type == "user" ? <Button
+                            onClick={handleAuth}
+                            startIcon={token ? <LogoutIcon sx={{ fontSize: "14px !important" }} /> : <LoginIcon sx={{ fontSize: "14px !important" }} />}
+                            sx={{
+                                fontSize: "12px",
+                                fontWeight: "bold",
+                                boxShadow: "0 0 2px black",
+                                textTransform: "none",
+                                color: "black",
+                                color: "#ef6c57",
+                                backgroundColor: "#f5f5f5",
+                                "&:hover": { backgroundColor: "#ddd" }
+                            }}
+                        >
+                            {token ? "Logout" : "Login"}
+                        </Button> :
+                            <Button
+                                onClick={() => navigate("/admin")}
+                                sx={{
+                                    fontSize: "12px",
+                                    fontWeight: "bold",
+                                    boxShadow: "0 0 2px black",
+                                    textTransform: "none",
+                                    color: "black",
+                                    color: "#ef6c57",
+                                    backgroundColor: "#f5f5f5",
+                                    "&:hover": { backgroundColor: "#ddd" }
+                                }}
+                            >
+                                Admin Dashboard
+                            </Button>
+                    }
                 </Toolbar>
             </Container>
             {children}
