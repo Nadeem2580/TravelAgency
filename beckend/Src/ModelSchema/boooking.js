@@ -8,13 +8,13 @@ const schema = new mongoose.Schema({
     whatsAppNo: { type: String, required: true },
     destination: { type: String, required: true },
     travelDate: { type: String, required: true },
-    confirmation: { type: String, required: true },
+    confirmation: { type: String, default: "pending" },
     noOfPerson: { type: String, required: true }
 
 })
 
 
 
- const BookingModel = mongoose.model("booking", schema)
+const BookingModel = mongoose.model("booking", schema)
 
- export default BookingModel
+export default BookingModel

@@ -17,7 +17,7 @@ export const Home = () => {
 
   return (
     <>
-      {location == "/login" ? null : location == "/signup" ? null : <Navbar />}
+      {/* {location == "/login" ? null : location == "/signup" ? null : <Navbar />} */}
       <Hero />
       <Cards />
       <Heading heading={"Testimonials"} text={null} />
@@ -36,7 +36,7 @@ export const Home = () => {
       <Services />
       <Heading heading={"Want To Travel With Us?"} text={null} />
       <Buttons />
-      {location == "/login" ? null : location == "/signup" ? null : <Footer />}
+      {/* {location == "/login" ? null : location == "/signup" ? null : <Footer />} */}
 
     </>
   )

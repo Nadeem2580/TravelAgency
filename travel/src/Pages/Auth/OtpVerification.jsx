@@ -12,39 +12,44 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toaster, { BASE_URL } from '../utils/utils';
 import AllRoutes from '../All Api\'s';
-
+import { CircularProgress } from "@mui/material"
 const OTPpage = () => {
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const location = useLocation()
     console.log("location", location)
-const navigate= useNavigate()
-   const verifyOTP = async (e) => {
-    e.preventDefault(); // prevent page reload
-    try {
-        if (otp.length < 6) {
-            toaster({ type: "error", message: "Invalid OTP" });
-            setError("Invalid OTP");
-            return;
-        }
-        setError("");
-       const locationEmail = location?.state?.email;
-const email = locationEmail || localStorage.getItem("otpEmail");
-        const res = await axios.post(`${BASE_URL}${AllRoutes.otp}`, { otp, email });
+    const navigate = useNavigate()
+    const verifyOTP = async (e) => {
+        e.preventDefault(); // prevent page reload
+        try {
+            setIsLoading(true)
+            if (otp.length < 6) {
+                toaster({ type: "error", message: "Invalid OTP" });
+                setError("Invalid OTP");
+                 setIsLoading(false)
+                return;
+            }
+            setError("");
+            const locationEmail = location?.state?.email;
+            const email = locationEmail || localStorage.getItem("otpEmail");
+            const res = await axios.post(`${BASE_URL}${AllRoutes.otp}`, { otp, email });
 
-        if (res.data.status) {
-            setSuccess(true);
-            toaster({ type: "success", message: "OTP verified successfully" });
-            navigate("/"); // navigate after success
-        } else {
-            toaster({ type: "error", message: res.data.message });
+            if (res.data.status) {
+                setSuccess(true);
+                toaster({ type: "success", message: "OTP verified successfully" });
+                navigate("/"); // navigate after success
+            } else {
+                toaster({ type: "error", message: res.data.message });
+            }
+        } catch (error) {
+            console.log(error.message);
+            toaster({ type: "error", message: error.message });
+        } finally {
+            setIsLoading(false)
         }
-    } catch (error) {
-        console.log(error.message);
-        toaster({ type: "error", message: error.message });
-    }
-};
+    };
 
 
     return (
@@ -83,12 +88,13 @@ const email = locationEmail || localStorage.getItem("otpEmail");
 
                         <Grid size={{ xs: 12 }}>
                             <Button
+                                sx={{ display: "flex", gap: "10px" }}
                                 type="submit"
                                 variant="contained"
                                 fullWidth
                                 disabled={otp.length !== 6}
                             >
-                                Verify OTP
+                                Verify OTP {isLoading ? <CircularProgress size={30} thickness={5} color="inherit" /> : null}
                             </Button>
                         </Grid>
                     </Grid>

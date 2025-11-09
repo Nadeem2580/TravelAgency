@@ -1,68 +1,62 @@
 import { ThemeProvider } from "@mui/material/styles"
-import { Route, Routes } from 'react-router-dom'
-import { Bounce, ToastContainer } from 'react-toastify'
-import './App.css'
-import AboutPage from './Pages/About'
-import AdminBooking from './Pages/Admin/AdminBooking'
-import AdminDashboard from './Pages/Admin/AdminDahsboard'
-import CreateTour from './Pages/Admin/CreateTour'
-import Users from './Pages/Admin/Users'
-import LoginPage from './Pages/Auth/Log-In/Login'
+import { Route, Routes } from "react-router-dom"
+import { Bounce, ToastContainer } from "react-toastify"
+import "./App.css"
+import AboutPage from "./Pages/About"
+import AdminBooking from "./Pages/Admin/AdminBooking"
+import AdminDashboard from "./Pages/Admin/AdminDahsboard"
+import CreateTour from "./Pages/Admin/CreateTour"
+import Layout from "./Pages/Admin/Layout/Layout"
+import Users from "./Pages/Admin/Users"
+import LoginPage from "./Pages/Auth/Log-In/Login"
 import OTPpage from "./Pages/Auth/OtpVerification"
-import SignUp from './Pages/Auth/Sign-up/SignUp'
-import BookingForm from './Pages/BookingForm'
-import Contact from './Pages/Contact'
-import DestinationPage from './Pages/Destination'
-import DestinationDetail from './Pages/DestinationDetail'
-import Home from './Pages/Home'
+import SignUp from "./Pages/Auth/Sign-up/SignUp"
+import BookingForm from "./Pages/BookingForm"
+import Contact from "./Pages/Contact"
+import DestinationPage from "./Pages/Destination"
+import DestinationDetail from "./Pages/DestinationDetail"
+import Home from "./Pages/Home"
 import AdminRoute from "./Pages/Routes/AdminRoute"
 import Auth from "./Pages/Routes/Auth"
 import UserRoute from "./Pages/Routes/UserRoute"
-import BookingSuccess from './Pages/Success/Success'
-import theme from './Theme'
+import BookingSuccess from "./Pages/Success/Success"
+import theme from "./Theme"
+
 function App() {
-
-
-
   return (
     <>
       <ThemeProvider theme={theme}>
-
-
-
         <Routes>
-          <Route index element={<Home />} />
-          <Route path='/destination' element={<DestinationPage />} />
-          <Route path='/about' element={<AboutPage />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path="/destination/:name" element={<DestinationDetail />} />
+          {/* All main pages go inside Layout */}
+          <Route element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/destination" element={<DestinationPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/destination/:name" element={<DestinationDetail />} />
 
-          <Route element={<Auth />}>
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/otp-verify' element={<OTPpage />} />
-          </Route>
+            {/* Protected User Routes */}
+            <Route element={<UserRoute />}>
+              <Route path="/booking" element={<BookingForm />} />
+              <Route path="/success" element={<BookingSuccess />} />
+            </Route>
 
-
-
-          <Route element={<UserRoute />}>
-            <Route path='/booking' element={<BookingForm />} />
-            <Route path='/success' element={<BookingSuccess />} />
-          </Route>
-
-          {/* Admin Route */}
-          <Route element={<AdminRoute />}>
+            {/* Admin Routes */}
+            <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="creat_tour" element={<CreateTour />} />
+              <Route path="/admin/create_tour" element={<CreateTour />} />
               <Route path="/admin/admin-user" element={<Users />} />
               <Route path="/admin/admin-booking" element={<AdminBooking />} />
+            </Route>
           </Route>
 
+          {/* Auth Routes (no Navbar/Footer) */}
+          <Route element={<Auth />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/otp-verify" element={<OTPpage />} />
+          </Route>
         </Routes>
-
-
-
-
       </ThemeProvider>
 
       <ToastContainer
@@ -78,8 +72,6 @@ function App() {
         theme="light"
         transition={Bounce}
       />
-
-
     </>
   )
 }

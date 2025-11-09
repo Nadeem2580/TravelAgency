@@ -5,10 +5,10 @@ import travelDestinations from "../assets/object";
 import toaster, { BASE_URL } from "./utils/utils";
 import AllRoutes from "./All Api's";
 import axios from "axios";
-
+import { CircularProgress } from "@mui/material"
 const BookingForm = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false)
   const {
     control,
     handleSubmit,
@@ -17,14 +17,26 @@ const BookingForm = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const bookiingRes = await axios.post(`${BASE_URL}${AllRoutes.booking}`, data)
+    try {
+      setIsLoading(true)
+      const bookiingRes = await axios.post(`${BASE_URL}${AllRoutes.booking}`, data)
 
-    toaster({
-      message: "Booking Successfully",
-      type: "success"
-    })
-    reset()
+      toaster({
+        message: "Booking Successfully",
+        type: "success"
+      })
+      reset()
+      Navigate("/")
 
+    } catch (error) {
+      toaster({
+        message: error.message || "Something went wrong",
+        type: "error"
+      })
+    }
+    finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -145,8 +157,8 @@ const BookingForm = () => {
         )}
 
         <Button type="submit" fullWidth variant="contained"
-          sx={{ mt: 3, py: 1.2, backgroundColor: "#ef6c57", "&:hover": { backgroundColor: "#d45243" } }}>
-          Submit Booking Request
+          sx={{ display: "flex", gap: "10px", mt: 3, py: 1.2, backgroundColor: "#ef6c57", "&:hover": { backgroundColor: "#d45243" } }}>
+          Submit Booking Request {isLoading ? <CircularProgress size={30} thickness={5} color="inherit" /> : null}
         </Button>
       </form>
     </Box>

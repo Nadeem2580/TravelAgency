@@ -22,9 +22,10 @@ import axios from "axios";
 import toaster, { BASE_URL } from "../../utils/utils";
 import AllRoutes from "../../All Api's";
 import homeImage from "../../../assets/homeImage.png"
-
+import { CircularProgress } from "@mui/material"
 const SignUp = () => {
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
   const schema = yup.object({
     fullName: yup.string().required("Full Name is required"),
     email: yup.string().email("Invalid email format").required("email is required"),
@@ -50,7 +51,9 @@ const SignUp = () => {
   const onSubmit = async (obj) => {
 
     try {
+      setIsLoading(true)
       if (obj.password !== obj.confirmPassword) {
+        setIsLoading(false)
         return toaster({
           message: "Credential is not valid",
           type: "error"
@@ -70,12 +73,14 @@ const SignUp = () => {
           page: "signup"
         }
       })
-
+     
     } catch (error) {
       toaster({
         message: error.message,
         type: "error"
       })
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -337,6 +342,7 @@ const SignUp = () => {
           <Button
             type="submit"
             sx={{
+               display: "flex", gap: "10px",
               background: "linear-gradient(145deg, #3f0d12, #5e3939ff, #8d1d27ff)",
               border: "1px solid #fff",
               padding: "15px 0",
@@ -346,7 +352,7 @@ const SignUp = () => {
               },
             }}
           >
-            Submit
+            Submit  {isLoading ? <CircularProgress size={30} thickness={5} color="inherit" /> : null}
           </Button>
         </Box>
       </Box>
