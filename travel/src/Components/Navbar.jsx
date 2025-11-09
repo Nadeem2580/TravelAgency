@@ -29,7 +29,7 @@ function Navbar({ children }) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const stored = Cookies.get("token");
     const token = stored ? JSON.parse(stored) : null;
-
+console.log(token , "token")
     const navigate = useNavigate()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -126,7 +126,7 @@ function Navbar({ children }) {
                         </Menu>
                     </Box>
                     {
-                        token.type == "user" ? <Button
+                        token?.type == "user" ? <Button
                             onClick={handleAuth}
                             startIcon={token ? <LogoutIcon sx={{ fontSize: "14px !important" }} /> : <LoginIcon sx={{ fontSize: "14px !important" }} />}
                             sx={{

@@ -9,7 +9,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight"
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-
+import { motion } from "framer-motion"
 const Hero = () => {
     const navigate = useNavigate()
     const travelDestinations = [
@@ -100,28 +100,50 @@ const Hero = () => {
                 <Container maxWidth="lg" sx={{ padding: "20px", mt: { xs: -8, sm: -8, md: -10 }, position: "relative", zIndex: 10 }}>
                     <Grid container spacing={3} justifyContent="center">
                         {travelDestinations.map((data, index) => (
-                            <Grid size={{ xs: 12, sm: 6, md: 3.5 }} key={data.name} sx={{
-                                overflow: "hidden", position: "relative",
-                                "&:hover .bgImage": { transform: "scale(1.1)" },
-                                "&:hover .text": { bottom: "40px" },
-                                transition: "all 0.4s ease"
-                            }}>
-                                <Box
-                                    className="bgImage"
-                                    component="div"
-                                    src={data.image}
-                                    alt={`destination-${index}`}
-                                    sx={{
-                                        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)),
-                                     url(${data.image})`, backgroundSize: "cover", backgroundPosition: "center",
-                                        backgroundRepeat: "no-repeat", width: "350px", height: "400px",
-                                        boxShadow: 5, objectFit: "cover", overflow: "hidden", transition: "transform 0.4s ease"
-                                    }} />
-                                <Typography variant="h6" className="text" sx={{
-                                    transition: "bottom 0.4s ease", position: "absolute",
-                                    bottom: "30px", textAlign: "center", color: "#fff", marginLeft: "10px"
-                                }}>{data.name}</Typography>
-
+                            <Grid
+                                size={{xs:12 , md:6 , lg:3.5}}
+                                key={data.name}
+                                sx={{ display: "flex", justifyContent: "center" }}
+                            >
+                                <motion.div
+                                    initial={{ opacity: 0, y: 60 }}                // starting animation (hidden + down)
+                                    whileInView={{ opacity: 1, y: 0 }}             // when visible in viewport
+                                    transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }} // smooth delay
+                                    viewport={{ once: true, amount: 0.2 }}         // only animate once when 20% visible
+                                    style={{ overflow: "hidden", position: "relative" }}
+                                >
+                                    <Box
+                                        className="bgImage"
+                                        sx={{
+                                            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url(${data.image})`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                            backgroundRepeat: "no-repeat",
+                                            width: "350px",
+                                            height: "400px",
+                                            boxShadow: 5,
+                                            borderRadius: "12px",
+                                            objectFit: "cover",
+                                            overflow: "hidden",
+                                            transition: "transform 0.4s ease",
+                                            "&:hover": { transform: "scale(1.1)" },
+                                        }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        className="text"
+                                        sx={{
+                                            transition: "bottom 0.4s ease",
+                                            position: "absolute",
+                                            bottom: "30px",
+                                            textAlign: "center",
+                                            color: "#fff",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        {data.name}
+                                    </Typography>
+                                </motion.div>
                             </Grid>
                         ))}
                     </Grid>
