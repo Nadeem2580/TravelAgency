@@ -6,9 +6,11 @@ import toaster, { BASE_URL } from "./utils/utils";
 import AllRoutes from "./All Api's";
 import axios from "axios";
 import { CircularProgress } from "@mui/material"
+import { useNavigate } from "react-router-dom";
 const BookingForm = () => {
   const [selectedDestination, setSelectedDestination] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
   const {
     control,
     handleSubmit,
@@ -25,8 +27,16 @@ const BookingForm = () => {
         message: "Booking Successfully",
         type: "success"
       })
-      reset()
-      Navigate("/")
+      reset({
+        fullName: "",
+        email: "",
+        whatsAppNo: "",
+        destination: "",
+        travelDate: "",
+        noOfPerson: ""
+      })
+      setSelectedDestination(null)
+      navigate("/")
 
     } catch (error) {
       toaster({

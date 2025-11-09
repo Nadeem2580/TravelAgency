@@ -58,6 +58,15 @@ const LoginPage = () => {
           type: "error"
         })
       }
+      if (!response.data.data.status) {
+        navigate("/")
+        setIsLoading(false) // ✅ Stop loader before navigating
+        return toaster({
+          message: "You are blocked by the admin please contact to the admin",
+          type: "error"
+        })
+
+      }
 
       if (!response.data.data.isVerified) {
         navigate("/otp-verify", {
@@ -95,156 +104,156 @@ const LoginPage = () => {
         message: error.message
       })
     } finally {
-      setIsLoading(false) 
+      setIsLoading(false)
+    }
   }
-}
 
 
-const [isLogin, setIsLogin] = useState(true);
-const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
-const handleChange = (e) => {
-  setFormData({ ...formData, [e.target.name]: e.target.value });
-};
-const handleToggle = () => {
-  setIsLogin(!isLogin);
-};
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleToggle = () => {
+    setIsLogin(!isLogin);
+  };
 
-return (
-  <Box sx={{
-    minHeight: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "#f5f5f5",
-    p: { xs: 2, sm: 3, md: 4 }
-  }}>
-    <Box sx={{ position: "absolute", top: "20px", left: "20px" }}> <Box component={"img"} src={homeImage} alt="Home"
-      onClick={() => navigate("/")} sx={{ width: "50px", cursor: "pointer" }} /></Box>
-    <Box
-      sx={{
-        boxShadow: "0 0 3px #ef6c57",
-        borderRadius: "10px",
-        backgroundColor: "#fff",
-        overflow: "visible",
-        flexShrink: 0,
-        width: {
-          xs: "90%",  // almost full width on extra small screens
-          sm: "70%",  // smaller on small devices
-          md: "40%",  // medium devices
-          lg: "30%",  // large devices and up
-        },
-        maxWidth: "400px",  // limit max width for very large screens
-        p: { xs: 2, sm: 3 },  // padding responsive as well
-      }}
-    >
+  return (
+    <Box sx={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      // backgroundColor: "#f5f5f5",
+      p: { xs: 2, sm: 3, md: 4 }
+    }}>
+      <Box sx={{ position: "absolute", top: "20px", left: "20px" }}> <Box component={"img"} src={homeImage} alt="Home"
+        onClick={() => navigate("/")} sx={{ width: "50px", cursor: "pointer" }} /></Box>
       <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 2 }}
+        sx={{
+          boxShadow: "0 0 3px #ef6c57",
+          borderRadius: "10px",
+          backgroundColor: "#fff",
+          overflow: "visible",
+          flexShrink: 0,
+          width: {
+            xs: "90%",  // almost full width on extra small screens
+            sm: "70%",  // smaller on small devices
+            md: "40%",  // medium devices
+            lg: "30%",  // large devices and up
+          },
+          maxWidth: "400px",  // limit max width for very large screens
+          p: { xs: 2, sm: 3 },  // padding responsive as well
+        }}
       >
-        <Typography
-          textAlign="center"
-          sx={{ fontWeight: 600, color: "#ef6c57", fontSize: { xs: "1rem", md: "1.8rem" } }}
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 2 }}
         >
-          Login to dashboard
-        </Typography>
-
-        {/* Email Field */}
-        <Controller
-
-          name="email"
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <TextField
-              label="Enter email"
-              {...field}
-              error={!!error}
-              autoComplete="off"
-              helperText={error ? error.message : ""}
-              sx={{
-                mt: 2,
-                input: { color: "#ef6c57" },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "#ef6c57" },
-                  "&:hover fieldset": { borderColor: "#ef6c57" },
-                  "&.Mui-focused fieldset": { borderColor: "#ef6c57" },
-                },
-              }}
-            />
-          )}
-        />
-
-        {/* Password Field */}
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          rules={{ required: "Password is required" }}
-          render={({ field, fieldState: { error } }) => (
-            <TextField
-              fullWidth
-              label="Enter Password"
-              type={showPassword ? "text" : "password"}
-              variant="outlined"
-              {...field}
-              autoComplete="off"
-              error={!!error}
-              helperText={error ? error.message : ""}
-              sx={{
-                input: { color: "#ef6c57" },
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "#ef6c57" },
-                  "&:hover fieldset": { borderColor: "#ef6c57" },
-                  "&.Mui-focused fieldset": { borderColor: "#ef6c57" },
-                },
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                      sx={{ color: "#00c6ff" }}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-
-        {/* Navigation */}
-        <Typography sx={{ ml: "auto", mr: "20px" }} variant="body2">
-          Don’t have an account?{" "}
-          <Link
-            to="/signup"
-            style={{ color: "#00c6ff", textDecoration: "underline" }}
+          <Typography
+            textAlign="center"
+            sx={{ fontWeight: 600, color: "#ef6c57", fontSize: { xs: "1rem", md: "1.8rem" } }}
           >
-            Sign up
-          </Link>
-        </Typography>
+            Login to dashboard
+          </Typography>
 
-        {/* Submit Button */}
-        <Button
-          type="submit"
-          sx={{
-            display: "flex", gap: "10px",
-            background: "linear-gradient(145deg, #3f0d12, #5e3939ff, #8d1d27ff)",
-            border: "1px solid #fff",
-            py: "15px",
-            color: "white",
-            "&:hover": {
-              background: "linear-gradient(145deg, #3f0d12, #000000)",
-            },
-          }}
-        >
-          Submit {isLoading ? <CircularProgress size={30} thickness={5} color="inherit" /> : null}
-        </Button>
+          {/* Email Field */}
+          <Controller
+
+            name="email"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                label="Enter email"
+                {...field}
+                error={!!error}
+                autoComplete="off"
+                helperText={error ? error.message : ""}
+                sx={{
+                  mt: 2,
+                  input: { color: "#ef6c57" },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: "#ef6c57" },
+                    "&:hover fieldset": { borderColor: "#ef6c57" },
+                    "&.Mui-focused fieldset": { borderColor: "#ef6c57" },
+                  },
+                }}
+              />
+            )}
+          />
+
+          {/* Password Field */}
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{ required: "Password is required" }}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                fullWidth
+                label="Enter Password"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                {...field}
+                autoComplete="off"
+                error={!!error}
+                helperText={error ? error.message : ""}
+                sx={{
+                  input: { color: "#ef6c57" },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: "#ef6c57" },
+                    "&:hover fieldset": { borderColor: "#ef6c57" },
+                    "&.Mui-focused fieldset": { borderColor: "#ef6c57" },
+                  },
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                        sx={{ color: "#00c6ff" }}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+
+          {/* Navigation */}
+          <Typography sx={{ ml: "auto", mr: "20px" }} variant="body2">
+            Don’t have an account?{" "}
+            <Link
+              to="/signup"
+              style={{ color: "#00c6ff", textDecoration: "underline" }}
+            >
+              Sign up
+            </Link>
+          </Typography>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            sx={{
+              display: "flex", gap: "10px",
+              background: "linear-gradient(145deg, #3f0d12, #5e3939ff, #8d1d27ff)",
+              border: "1px solid #fff",
+              py: "15px",
+              color: "white",
+              "&:hover": {
+                background: "linear-gradient(145deg, #3f0d12, #000000)",
+              },
+            }}
+          >
+            Submit {isLoading ? <CircularProgress size={30} thickness={5} color="inherit" /> : null}
+          </Button>
+        </Box>
       </Box>
     </Box>
-  </Box>
 
 
 
@@ -252,7 +261,7 @@ return (
 
 
 
-);
+  );
 };
 
 export default LoginPage;

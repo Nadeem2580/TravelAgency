@@ -51,7 +51,7 @@ const AdminUser = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2,color:"#ef6c57" }}>
+      <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2, color: "#ef6c57" }}>
         👥 Manage Users
       </Typography>
 
@@ -87,18 +87,18 @@ const AdminUser = () => {
                     <TableCell>
                       <Chip
                         label={user.status === true ? "Active" : "Inactive"}
-                        color={user.status === true ? "success" : "default"}
+                        color={user.status === true ? "success" : "error"}
                         variant="outlined"
                       />
                     </TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
-                        sx={{ fontSize: "10px", fontWeight: "bold", backgroundColor:user.status === true ? "#f50e34ff" :"#ef6c57" }}
+                        sx={{ fontSize: "10px", fontWeight: "bold", backgroundColor: user.status === true ? "#f50e34ff" : "#ef6c57" }}
                         color={user.status === "active" ? "error" : "success"}
                         onClick={() => toggleStatus(user._id, user.status)}
                       >
-                        {user.status === true ? "Deactive" : "Active"}
+                        {user.status === true ? "Reject" : "Approve"}
                       </Button>
                     </TableCell>
                   </TableRow>
