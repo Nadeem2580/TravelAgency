@@ -29,5 +29,5 @@ const toaster = (obj) => {
     }
 }
 
-export const BASE_URL = `http://localhost:3000`
+export const BASE_URL = `https://travel-agency-rosy-eta.vercel.app`
 export default toaster
